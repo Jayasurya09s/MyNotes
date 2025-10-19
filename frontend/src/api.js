@@ -1,7 +1,10 @@
 import axios from "axios";
 
 const api = axios.create({
-  baseURL: import.meta.env.VITE_API_URL || "http://localhost:5001/api/notes", // your backend URL
+  baseURL: import.meta.env.VITE_API_URL || "http://localhost:5001/api/notes" || "https://mynotes-0pq4.onrender.com", // your backend URL
+  headers: {
+    "Content-Type": "application/json",
+  },
 });
 
 // Add request interceptor to include user ID in headers
