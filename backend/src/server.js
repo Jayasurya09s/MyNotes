@@ -11,11 +11,6 @@ dotenv.config();
 const app =express();
 const PORT=process.env.PORT || 5001;
 
-
-app.use(cors({
-  origin: allowedOrigins,
-  credentials: true
-}));
 // CORS configuration for production and development
 const allowedOrigins = [
   "http://localhost:5001",
@@ -24,6 +19,12 @@ const allowedOrigins = [
   "https://my-notes-alpha-orcin.vercel.app/"
 ].filter(Boolean);
 
+
+
+app.use(cors({
+  origin: allowedOrigins,
+  credentials: true
+}));
 
 
 //middleware

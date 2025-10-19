@@ -11,7 +11,7 @@ export default function HomePage({ user, setUser }) {
   const loadNotes = async () => {
     if (user) {
       try {
-        const res = await api.get(`/?userId=${user.uid}`); // fetch cloud notes for authenticated user
+        const res = await api.get("/"); ; // fetch cloud notes for authenticated user
         setNotes(res.data);
       } catch (err) {
         console.error(err);

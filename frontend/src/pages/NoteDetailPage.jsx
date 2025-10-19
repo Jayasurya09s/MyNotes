@@ -46,7 +46,7 @@ export default function NoteDetailPage({ user }) {
 
     if (user) {
       try {
-        await api.put(`/${id}`, { title, content, userId: user.uid });
+        await api.put(`/${id}`, { title, content });
         setNote({ ...note, title, content });
         toast.success("Note updated in cloud!");
       } catch (err) {

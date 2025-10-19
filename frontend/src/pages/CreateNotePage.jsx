@@ -17,7 +17,7 @@ export default function CreateNotePage({ user }) {
     if (user) {
       // --- POST to Mongo for logged-in user ---
       try {
-        await api.post("/", { title, content, userId: user.uid });
+        await api.post("/", { title, content, });
         toast.success("Note saved in cloud!");
       } catch (err) {
         console.error(err);
