@@ -7,8 +7,6 @@ const api = axios.create({
   },
 });
 
-
-// Add request interceptor to include user ID in headers
 api.interceptors.request.use((config) => {
   try {
     const userStr = localStorage.getItem('firebaseUser');
