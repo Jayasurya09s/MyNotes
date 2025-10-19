@@ -11,7 +11,17 @@ dotenv.config();
 const app =express();
 const PORT=process.env.PORT || 5001;
 
-app.use(cors({origin: "http://localhost:5173",credentials: true}));
+// CORS configuration for production and development
+const allowedOrigins = [
+  "http://localhost:5173",
+  "http://localhost:5174", 
+  process.env.FRONTEND_URL
+].filter(Boolean);
+
+app.use(cors({
+  origin: allowedOrigins,
+  credentials: true
+}));
 //middleware
 app.use(express.json());
 app.use(ratelimiter);
