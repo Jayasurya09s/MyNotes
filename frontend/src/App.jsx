@@ -41,15 +41,15 @@ export default function App() {
       <Routes>
         <Route
           path="/"
-          element={<HomePage user={user} getUserId={getUserId} />}
+          element={<HomePage user={user} setUser={setUser} getUserId={getUserId} />}
         />
         <Route
           path="/note/:id"
-          element={<NoteDetailPage user={user} getUserId={getUserId} />}
+          element={<NoteDetailPage user={user} setUser={setUser} getUserId={getUserId} />}
         />
         <Route
           path="/create"
-          element={<CreateNotePage user={user} getUserId={getUserId} />}
+          element={<CreateNotePage user={user} setUser={setUser} getUserId={getUserId} />}
         />
         <Route
           path="/login"

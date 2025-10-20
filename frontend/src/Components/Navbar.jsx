@@ -11,13 +11,12 @@ export default function Navbar({ user, setUser }) {
   const handleLogout = async () => {
     try {
       await signOut(auth);
-      // Clear localStorage
-      localStorage.removeItem('firebaseUser');
-      setUser(null);
+      localStorage.removeItem("firebaseUser");
+      if (typeof setUser === "function") setUser(null);
       toast.success("Logged out successfully!");
       navigate("/");
-    } catch (error) {
-      console.error("Logout failed:", error);
+    } catch (err) {
+      console.error("Logout failed:", err);
       toast.error("Logout failed.");
     }
   };
