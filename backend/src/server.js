@@ -13,10 +13,10 @@ const PORT=process.env.PORT || 5001;
 
 // CORS configuration for production and development
 const allowedOrigins = [
-  "http://localhost:5001",
   "http://localhost:5173",
-  process.env.FRONTEND_URL,
   "https://my-notes-alpha-orcin.vercel.app",
+  process.env.FRONTEND_URL,
+  
 ].filter(Boolean);
 
 app.use(cors({
