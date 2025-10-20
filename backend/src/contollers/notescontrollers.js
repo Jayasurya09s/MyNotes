@@ -39,19 +39,40 @@ export async function getNoteId(req, res) {
 
 export async function createAllNotes(req, res) {
   try {
-    const { title, content, userId } = req.body;
-    const newNote = new Note({ title, content, userId });
+    // Get userId from body first, then fallback to header
+    const userId = req.body.userId || req.headers['x-user-id'];
+    const { title, content } = req.body;
+    
+    // Validate required fields
+    if (!title || !content) {
+      return res.status(400).json({ message: "Title and content are required" });
+    }
+    
+    // Create note with userId
+    const newNote = new Note({ 
+      title, 
+      content, 
+      userId: userId || undefined  // Allow undefined for guest notes if needed
+    });
+    
     const savedNote = await newNote.save();
     res.status(201).json(savedNote);
   } catch (error) {
     console.error("Error in creatingAllNotes", error);
-    res.status(500).json({ message: "Internal Server error" });
+    res.status(500).json({ message: "Internal Server error", error: error.message });
   }
 }
 
 export async function updateNotes(req, res) {
   try {
-    const { title, content, userId } = req.body;
+    // Get userId from body first, then fallback to header
+    const userId = req.body.userId || req.headers['x-user-id'];
+    const { title, content } = req.body;
+    
+    // Validate required fields
+    if (!title || !content) {
+      return res.status(400).json({ message: "Title and content are required" });
+    }
     
     // First check if the note exists and belongs to the user
     const existingNote = await Note.findById(req.params.id);
@@ -70,7 +91,7 @@ export async function updateNotes(req, res) {
     res.status(200).json(updatedNote);
   } catch (error) {
     console.error("Error in updatingAllNotes", error);
-    res.status(500).json({ message: "Internal Server error" });
+    res.status(500).json({ message: "Internal Server error", error: error.message });
   }
 }
 
@@ -86,10 +107,10 @@ export async function deleteNote(req, res) {
       return res.status(403).json({ message: "Access denied" });
     }
     
-    const deletedNote = await Note.findByIdAndDelete(req.params.id);
+    await Note.findByIdAndDelete(req.params.id);
     res.status(200).json({ message: "Note deleted successfully" });
   } catch (error) {
     console.error("Error in deletingAllNotes", error);
-    res.status(500).json({ message: "Internal Server error" });
+    res.status(500).json({ message: "Internal Server error", error: error.message });
   }
 }

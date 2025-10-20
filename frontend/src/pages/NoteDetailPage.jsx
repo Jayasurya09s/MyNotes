@@ -16,7 +16,8 @@ export default function NoteDetailPage({ user }) {
     const loadNote = async () => {
       if (user) {
         try {
-          const res = await api.get(`/${id}?userId=${user.uid}`);
+          // Use x-user-id header (added by interceptor) instead of query param
+          const res = await api.get(`/${id}`);
           setNote(res.data);
           setTitle(res.data.title);
           setContent(res.data.content);
@@ -46,7 +47,12 @@ export default function NoteDetailPage({ user }) {
 
     if (user) {
       try {
-        await api.put(`/${id}`, { title, content });
+        // Send userId in the request body
+        await api.put(`/${id}`, { 
+          title, 
+          content,
+          userId: user.uid  // Add this line
+        });
         setNote({ ...note, title, content });
         toast.success("Note updated in cloud!");
       } catch (err) {
@@ -68,7 +74,8 @@ export default function NoteDetailPage({ user }) {
 
     if (user) {
       try {
-        await api.delete(`/${id}?userId=${user.uid}`);
+        // x-user-id header will be added by interceptor
+        await api.delete(`/${id}`);
         toast.success("Note deleted from cloud!");
         navigate("/");
       } catch (err) {
