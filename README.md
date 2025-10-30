@@ -233,7 +233,7 @@ Contributions are welcome! Please feel free to submit a Pull Request.
 
 ##  Author
 
-**Your Name**
+Jayanth Midde
 - GitHub:(https://github.com/Jayasurya09s)
 - LinkedIn: Jayanth Midde-https://www.linkedin.com/in/jayanth-midde-968150321/
 
